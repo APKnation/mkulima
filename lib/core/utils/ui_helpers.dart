@@ -2,6 +2,13 @@ import 'package:material_ui/material_ui.dart';
 
 import '../theme/app_theme.dart';
 
+/// Pushes a full-screen route with the app's standard transition.
+Future<T?> pushScreen<T>(BuildContext context, Widget screen) {
+  return Navigator.of(context).push<T>(
+    MaterialPageRoute<T>(builder: (_) => screen),
+  );
+}
+
 /// Lightweight feedback helpers, kept consistent across every screen.
 void showAppSnack(
   BuildContext context,
