@@ -193,7 +193,7 @@ class _DealerCard extends StatelessWidget {
                 child: MkButton(
                   label: 'Piga Simu (${dealer.phone})',
                   icon: Icons.phone_rounded,
-                  size: MkButtonSize.sm,
+                  height: 44,
                   onPressed: () {
                     showAppSnack(
                       context,

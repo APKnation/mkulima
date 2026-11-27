@@ -6,6 +6,7 @@ import '../../core/widgets/mk_button.dart';
 
 class _Slide {
   const _Slide({
+    required this.imageAsset,
     required this.icon,
     required this.secondaryIcon,
     required this.gradient,
@@ -13,6 +14,7 @@ class _Slide {
     required this.body,
   });
 
+  final String imageAsset;
   final IconData icon;
   final IconData secondaryIcon;
   final Gradient gradient;
@@ -22,6 +24,7 @@ class _Slide {
 
 const _slides = [
   _Slide(
+    imageAsset: 'assets/images/mkulima1.jpg',
     icon: Icons.storefront_rounded,
     secondaryIcon: Icons.local_shipping_rounded,
     gradient: AppColors.heroGradient,
@@ -31,6 +34,7 @@ const _slides = [
         'Weka tangazo lako kwa dakika mbili tu.',
   ),
   _Slide(
+    imageAsset: 'assets/images/mkulima2.jpg',
     icon: Icons.trending_up_rounded,
     secondaryIcon: Icons.insights_rounded,
     gradient: AppColors.goldGradient,
@@ -40,6 +44,7 @@ const _slides = [
         'pamoja na mwenendo wa bei na vyanzo vilivyothibitishwa.',
   ),
   _Slide(
+    imageAsset: 'assets/images/mkulima3.jpg',
     icon: Icons.menu_book_rounded,
     secondaryIcon: Icons.cloud_off_rounded,
     gradient: AppColors.turquoiseGradient,
@@ -166,79 +171,64 @@ class _SlideView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppRadius.xxl),
                 boxShadow: AppShadows.floating,
               ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: -40,
-                    right: -30,
-                    child: Container(
-                      width: 160,
-                      height: 160,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppRadius.xxl),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(
+                      slide.imageAsset,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                    ),
+                    Container(
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withValues(alpha: 0.14),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withValues(alpha: 0.10),
+                            Colors.black.withValues(alpha: 0.55),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: -50,
-                    left: -20,
-                    child: Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withValues(alpha: 0.08),
+                    Positioned(
+                      top: 18,
+                      left: 18,
+                      child: Container(
+                        padding: const EdgeInsets.all(AppSpacing.sm),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.90),
+                          shape: BoxShape.circle,
+                          boxShadow: AppShadows.soft,
+                        ),
+                        child: Icon(
+                          slide.icon,
+                          size: 24,
+                          color: AppColors.primaryDark,
+                        ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          width: 170,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white.withValues(alpha: 0.15),
-                          ),
+                    Positioned(
+                      bottom: 18,
+                      right: 18,
+                      child: Container(
+                        padding: const EdgeInsets.all(9),
+                        decoration: const BoxDecoration(
+                          color: AppColors.secondary,
+                          shape: BoxShape.circle,
+                          boxShadow: AppShadows.card,
                         ),
-                        Container(
-                          width: 122,
-                          height: 122,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white.withValues(alpha: 0.92),
-                          ),
-                          child: Icon(
-                            slide.icon,
-                            size: 58,
-                            color: AppColors.primaryDark,
-                          ),
+                        child: Icon(
+                          slide.secondaryIcon,
+                          size: 20,
+                          color: AppColors.primaryDeep,
                         ),
-                        Positioned(
-                          bottom: 40,
-                          right: 24,
-                          child: Container(
-                            width: 46,
-                            height: 46,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.surface,
-                              boxShadow: AppShadows.card,
-                            ),
-                            child: Icon(
-                              slide.secondaryIcon,
-                              size: 24,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

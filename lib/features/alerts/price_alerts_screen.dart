@@ -152,7 +152,7 @@ class _AlertCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
-              color: alert.active ? AppColors.successSoft : AppColors.mutedSoft,
+              color: alert.active ? AppColors.successSoft : AppColors.surfaceAlt,
               shape: BoxShape.circle,
             ),
             child: Icon(

@@ -183,7 +183,7 @@ class _TransporterCard extends StatelessWidget {
           MkButton(
             label: 'Wasiliana na Dereva (${transporter.phone})',
             icon: Icons.phone_rounded,
-            size: MkButtonSize.sm,
+            height: 44,
             onPressed: () {
               showAppSnack(
                 context,
@@ -268,7 +268,7 @@ class _WarehouseCard extends StatelessWidget {
           MkButton(
             label: 'Hifadhi Mzigo / Wasiliana (${warehouse.phone})',
             icon: Icons.phone_rounded,
-            size: MkButtonSize.sm,
+            height: 44,
             onPressed: () {
               showAppSnack(
                 context,
