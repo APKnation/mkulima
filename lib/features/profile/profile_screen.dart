@@ -10,6 +10,10 @@ import '../../core/widgets/mk_card.dart';
 import '../../core/widgets/mk_image.dart';
 import '../../data/models/user.dart';
 import '../../data/seed/misc_seed.dart';
+import '../calculator/crop_calculator_screen.dart';
+import '../calendar/farm_calendar_screen.dart';
+import '../diagnosis/pest_diagnosis_screen.dart';
+import '../directory/agro_directory_screen.dart';
 import '../farm/farm_screen.dart';
 import '../marketplace/create_listing_screen.dart';
 import '../marketplace/my_listings_screen.dart';
@@ -198,6 +202,38 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
               child: Column(
                 children: [
+                  _MenuTile(
+                    icon: Icons.calculate_outlined,
+                    color: AppColors.accent,
+                    title: 'Kikokotoo cha Faida',
+                    subtitle: 'Hesabu gharama na faida tarajiwa ya kilimo',
+                    onTap: () => pushScreen(context, const CropCalculatorScreen()),
+                  ),
+                  const Divider(),
+                  _MenuTile(
+                    icon: Icons.bug_report_outlined,
+                    color: AppColors.danger,
+                    title: 'Utambuzi wa Magonjwa',
+                    subtitle: 'Dalili, tiba asili na dawa za kilimo',
+                    onTap: () => pushScreen(context, const PestDiagnosisScreen()),
+                  ),
+                  const Divider(),
+                  _MenuTile(
+                    icon: Icons.calendar_month_outlined,
+                    color: AppColors.primaryDark,
+                    title: 'Kalenda ya Shamba',
+                    subtitle: 'Ratiba ya mbolea, palizi na mavuno',
+                    onTap: () => pushScreen(context, const FarmCalendarScreen()),
+                  ),
+                  const Divider(),
+                  _MenuTile(
+                    icon: Icons.storefront_outlined,
+                    color: AppColors.info,
+                    title: 'Wauzaji & Maafisa Ugani',
+                    subtitle: 'Wataalamu na maduka ya pembejeo',
+                    onTap: () => pushScreen(context, const AgroDirectoryScreen()),
+                  ),
+                  const Divider(),
                   _MenuTile(
                     icon: Icons.agriculture_rounded,
                     color: AppColors.primary,

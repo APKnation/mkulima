@@ -12,7 +12,11 @@ import '../../core/widgets/product_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../data/models/category.dart';
 import '../../data/seed/misc_seed.dart';
+import '../calculator/crop_calculator_screen.dart';
+import '../calendar/farm_calendar_screen.dart';
 import '../categories/category_detail_screen.dart';
+import '../diagnosis/pest_diagnosis_screen.dart';
+import '../directory/agro_directory_screen.dart';
 import '../farm/farm_screen.dart';
 import '../guides/guides_screen.dart';
 import '../marketplace/product_detail_screen.dart';
@@ -211,6 +215,50 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xxl),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.page),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.calculate_rounded,
+                        label: 'Kikokotoo',
+                        color: AppColors.accentSoft,
+                        foreground: const Color(0xFF8A6205),
+                        onTap: () => pushScreen(context, const CropCalculatorScreen()),
+                      ),
+                    ),
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.bug_report_outlined,
+                        label: 'Magonjwa',
+                        color: AppColors.dangerSoft,
+                        foreground: AppColors.danger,
+                        onTap: () => pushScreen(context, const PestDiagnosisScreen()),
+                      ),
+                    ),
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.calendar_month_rounded,
+                        label: 'Kalenda',
+                        color: AppColors.turquoiseSoft,
+                        foreground: const Color(0xFF00806A),
+                        onTap: () => pushScreen(context, const FarmCalendarScreen()),
+                      ),
+                    ),
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.storefront_rounded,
+                        label: 'Wataalamu',
+                        color: AppColors.infoSoft,
+                        foreground: AppColors.info,
+                        onTap: () => pushScreen(context, const AgroDirectoryScreen()),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.page),
                 child: Row(
