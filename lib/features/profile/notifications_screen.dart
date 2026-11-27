@@ -34,9 +34,13 @@ class NotificationsScreen extends StatelessWidget {
         title: const Text('Arifa'),
         actions: [
           if (state.unreadNotifications > 0)
-            TextButton(
-              onPressed: state.markAllNotificationsRead,
-              child: const Text('Soma zote'),
+            Padding(
+              padding: const EdgeInsets.only(right: AppSpacing.sm),
+              child: TextButton.icon(
+                icon: const Icon(Icons.done_all_rounded, size: 18),
+                label: const Text('Soma zote'),
+                onPressed: state.markAllNotificationsRead,
+              ),
             ),
         ],
       ),
@@ -67,11 +71,30 @@ class NotificationsScreen extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
               itemBuilder: (context, index) {
                 final item = notifications[index];
-                return _NotificationTile(
-                  notification: item,
-                  color: _color(item.type),
-                  icon: _icon(item.type),
-                  onTap: () => state.markNotificationRead(item.id),
+                return Dismissible(
+                  key: ValueKey(item.id),
+                  direction: DismissDirection.endToStart,
+                  background: Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: AppSpacing.lg),
+                    decoration: BoxDecoration(
+                      color: AppColors.dangerSoft,
+                      borderRadius: BorderRadius.circular(AppRadius.lg),
+                    ),
+                    child: const Icon(
+                      Icons.delete_outline_rounded,
+                      color: AppColors.danger,
+                    ),
+                  ),
+                  onDismissed: (_) {
+                    state.markNotificationRead(item.id);
+                  },
+                  child: _NotificationTile(
+                    notification: item,
+                    color: _color(item.type),
+                    icon: _icon(item.type),
+                    onTap: () => state.markNotificationRead(item.id),
+                  ),
                 );
               },
             ),

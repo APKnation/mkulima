@@ -63,16 +63,31 @@ class FavoritesScreen extends StatelessWidget {
           : ListView(
               padding: const EdgeInsets.all(AppSpacing.page),
               children: [
-                Text(
-                  'Bidhaa ${favorites.length} zilizohifadhiwa',
-                  style: AppText.small,
+                Row(
+                  children: [
+                    Text(
+                      'Bidhaa ${favorites.length} zilizohifadhiwa',
+                      style: AppText.small,
+                    ),
+                    const Spacer(),
+                    Text(
+                      'Gusa moyo kuondoa',
+                      style: AppText.overline.copyWith(color: AppColors.muted),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppSpacing.md),
                 for (final product in favorites) ...[
                   ProductCard(
                     product: product,
                     favorite: true,
-                    onFavorite: () => state.toggleFavorite(product.id),
+                    onFavorite: () {
+                      state.toggleFavorite(product.id);
+                      showAppSnack(
+                        context,
+                        'Bidhaa imeondolewa kwenye vipendwa',
+                      );
+                    },
                     onTap: () => pushScreen(
                       context,
                       ProductDetailScreen(product: product),

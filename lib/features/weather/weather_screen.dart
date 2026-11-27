@@ -119,7 +119,13 @@ class WeatherScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.md),
-          Text(weather.updatedAt, style: AppText.small),
+          Row(
+            children: [
+              const Icon(Icons.sync_rounded, size: 14, color: AppColors.muted),
+              const SizedBox(width: 4),
+              Text(weather.updatedAt, style: AppText.small),
+            ],
+          ),
           const SizedBox(height: AppSpacing.xl),
           Text('Utabiri wa siku 7', style: AppText.h2),
           const SizedBox(height: AppSpacing.md),

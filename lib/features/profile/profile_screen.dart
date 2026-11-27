@@ -158,24 +158,32 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: _Stat(
+                  child: _StatCard(
                     value: '${state.myListings.length}',
                     label: 'Bidhaa zangu',
+                    icon: Icons.inventory_2_outlined,
+                    color: AppColors.accent,
                     onTap: () =>
                         pushScreen(context, const MyListingsScreen()),
                   ),
                 ),
+                const SizedBox(width: AppSpacing.sm),
                 Expanded(
-                  child: _Stat(
+                  child: _StatCard(
                     value: '${state.favoriteCount}',
                     label: 'Vipendwa',
+                    icon: Icons.favorite_border_rounded,
+                    color: AppColors.danger,
                     onTap: () => pushScreen(context, const FavoritesScreen()),
                   ),
                 ),
+                const SizedBox(width: AppSpacing.sm),
                 Expanded(
-                  child: _Stat(
+                  child: _StatCard(
                     value: '${state.unreadNotifications}',
                     label: 'Arifa mpya',
+                    icon: Icons.notifications_none_rounded,
+                    color: AppColors.success,
                     onTap: () =>
                         pushScreen(context, const NotificationsScreen()),
                   ),
@@ -310,29 +318,54 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class _Stat extends StatelessWidget {
-  const _Stat({required this.value, required this.label, this.onTap});
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    required this.value,
+    required this.label,
+    required this.icon,
+    required this.color,
+    this.onTap,
+  });
 
   final String value;
   final String label;
+  final IconData icon;
+  final Color color;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return MkCard(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(AppRadius.md),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-        child: Column(
-          children: [
-            Text(
-              value,
-              style: AppText.h2.copyWith(color: AppColors.primaryDark),
+      shadow: AppShadows.soft,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: AppSpacing.md,
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.xs),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              shape: BoxShape.circle,
             ),
-            Text(label, style: AppText.small),
-          ],
-        ),
+            child: Icon(icon, size: 18, color: color),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            value,
+            style: AppText.h2.copyWith(color: AppColors.primaryDark),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: AppText.small,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
