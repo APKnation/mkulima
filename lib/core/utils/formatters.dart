@@ -39,12 +39,11 @@ String formatPercent(double value) {
 
 String initialsOf(String name) {
   final parts = name.trim().split(RegExp(r'\s+'));
-  if (parts.isEmpty) return 'M';
+  if (parts.isEmpty || parts.first.isEmpty) return 'M';
   if (parts.length == 1) {
-    return parts.first.characters.take(1).toString().toUpperCase();
+    return parts.first.substring(0, 1).toUpperCase();
   }
-  return (parts.first.characters.take(1).toString() +
-          parts[1].characters.take(1).toString())
+  return (parts.first.substring(0, 1) + parts[1].substring(0, 1))
       .toUpperCase();
 }
 

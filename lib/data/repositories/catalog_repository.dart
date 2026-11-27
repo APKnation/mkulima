@@ -4,6 +4,7 @@ import '../models/market_price.dart';
 import '../models/post.dart';
 import '../models/product.dart';
 import '../seed/categories_seed.dart';
+import '../seed/community_seed.dart';
 import '../seed/guides_seed.dart';
 import '../seed/prices_seed.dart';
 import '../seed/products_seed.dart';

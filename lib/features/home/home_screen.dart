@@ -4,12 +4,12 @@ import '../../core/state/app_state.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/formatters.dart';
 import '../../core/utils/ui_helpers.dart';
-import '../../core/widgets/badges.dart';
 import '../../core/widgets/mk_button.dart';
 import '../../core/widgets/mk_card.dart';
 import '../../core/widgets/mk_image.dart';
 import '../../core/widgets/mk_search_field.dart';
 import '../../core/widgets/product_card.dart';
+import '../../core/widgets/section_header.dart';
 import '../../data/models/category.dart';
 import '../../data/seed/misc_seed.dart';
 import '../categories/category_detail_screen.dart';
@@ -262,7 +262,7 @@ class HomeScreen extends StatelessWidget {
                 onAction: () => pushScreen(context, const SearchScreen()),
               ),
               SizedBox(
-                height: 216,
+                height: 228,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(
@@ -377,7 +377,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: AppSpacing.xxl),
                 const SectionHeader(title: 'Ulioangalia hivi karibuni'),
                 SizedBox(
-                  height: 216,
+                  height: 228,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(

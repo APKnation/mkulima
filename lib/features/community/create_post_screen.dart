@@ -5,6 +5,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/ui_helpers.dart';
 import '../../core/widgets/mk_button.dart';
 import '../../core/widgets/mk_card.dart';
+import '../../core/widgets/mk_image.dart';
 import '../../data/models/post.dart';
 
 class CreatePostScreen extends StatefulWidget {

@@ -71,7 +71,7 @@ class _GuideDetailScreenState extends State<GuideDetailScreen> {
                                     context,
                                     _saved
                                         ? 'Mwongozo umehifadhiwa kwa matumizi bila mtandao'
-                                        : 'Umwongozo umeondolewa kwenye kifaa',
+                                        : 'Mwongozo umeondolewa kwenye kifaa',
                                   );
                                 },
                               ),

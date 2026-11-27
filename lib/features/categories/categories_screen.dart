@@ -62,8 +62,8 @@ class CategoriesScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: categories.length,
                   gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 220,
                     mainAxisSpacing: AppSpacing.md,
                     crossAxisSpacing: AppSpacing.md,
                     childAspectRatio: 0.92,

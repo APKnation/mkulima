@@ -379,7 +379,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     Text('Bidhaa zinazofanana', style: AppText.h2),
                     const SizedBox(height: AppSpacing.md),
                     SizedBox(
-                      height: 216,
+                      height: 228,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: similar.length,

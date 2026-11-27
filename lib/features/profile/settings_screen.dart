@@ -100,10 +100,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       context,
                       child: _LanguageSheet(current: _language),
                     );
-                    if (selected != null && mounted) {
-                      setState(() => _language = selected);
-                      showAppSnack(context, 'Lugha imebadilishwa: $selected');
-                    }
+                    if (!context.mounted || selected == null) return;
+                    setState(() => _language = selected);
+                    showAppSnack(context, 'Lugha imebadilishwa: $selected');
                   },
                 ),
                 const Divider(),

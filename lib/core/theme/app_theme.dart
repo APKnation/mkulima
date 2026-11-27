@@ -362,7 +362,7 @@ ThemeData buildAppTheme() {
       linearTrackColor: AppColors.primarySoft,
       circularTrackColor: AppColors.primarySoft,
     ),
-    tabBarTheme: const TabBarThemeData(
+    tabBarTheme: TabBarThemeData(
       labelColor: AppColors.primaryDark,
       unselectedLabelColor: AppColors.muted,
       indicatorColor: AppColors.primary,

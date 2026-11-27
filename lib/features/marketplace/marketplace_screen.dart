@@ -3,7 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import '../../core/state/app_state.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/ui_helpers.dart';
-import '../../core/widgets/mk_card.dart';
+import '../../core/widgets/mk_button.dart';
 import '../../core/widgets/mk_search_field.dart';
 import '../../core/widgets/product_card.dart';
 import '../../data/models/product.dart';
@@ -32,6 +32,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'marketplace-create-listing',
         onPressed: () => pushScreen(context, const CreateListingScreen()),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
@@ -184,11 +185,11 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 ),
                 sliver: SliverGrid(
                   gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 210,
                     mainAxisSpacing: AppSpacing.md,
                     crossAxisSpacing: AppSpacing.md,
-                    childAspectRatio: 0.70,
+                    childAspectRatio: 0.74,
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {

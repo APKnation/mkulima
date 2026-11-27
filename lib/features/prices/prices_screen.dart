@@ -339,13 +339,15 @@ class _PriceDetailSheet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppSpacing.md),
-                Sparkline(
-                  values: lead.trend,
-                  width: double.infinity,
-                  height: 64,
-                  color: lead.changePercent >= 0
-                      ? AppColors.success
-                      : AppColors.danger,
+                LayoutBuilder(
+                  builder: (context, constraints) => Sparkline(
+                    values: lead.trend,
+                    width: constraints.maxWidth,
+                    height: 64,
+                    color: lead.changePercent >= 0
+                        ? AppColors.success
+                        : AppColors.danger,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Row(

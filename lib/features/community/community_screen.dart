@@ -37,6 +37,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'community-create-post',
         onPressed: () => pushScreen(context, const CreatePostScreen()),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
