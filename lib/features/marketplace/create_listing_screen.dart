@@ -45,6 +45,24 @@ class _CreateListingScreenState extends State<CreateListingScreen> {
   String? _error;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final user = AppScope.read(context).user;
+      final farm = AppScope.read(context).farm;
+      if (mounted) {
+        setState(() {
+          _region = user.region;
+          _location.text = user.ward;
+          if (farm.crops.isNotEmpty && _name.text.isEmpty) {
+            _name.text = farm.crops.first;
+          }
+        });
+      }
+    });
+  }
+
+  @override
   void dispose() {
     _name.dispose();
     _price.dispose();

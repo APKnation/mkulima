@@ -63,6 +63,10 @@ class FarmScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: AppColors.heroGradient,
               borderRadius: BorderRadius.circular(AppRadius.xl),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.2),
+                width: 1.2,
+              ),
               boxShadow: AppShadows.floating,
             ),
             child: Column(
@@ -71,54 +75,90 @@ class FarmScreen extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(
-                      Icons.agriculture_rounded,
+                      Icons.verified_user_rounded,
                       color: AppColors.secondary,
                       size: 22,
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Expanded(
                       child: Text(
-                        farm.name,
+                        'Shamba Lako la ${farm.name}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppText.h2.copyWith(color: Colors.white),
                       ),
                     ),
                     MkPill(
-                      label: farm.registered ? 'Imesajiliwa' : 'Bila usajili',
+                      label: farm.registered ? 'Mali Yako Imesajiliwa' : 'Haijasajiliwa',
                       foreground: farm.registered
-                          ? AppColors.success
-                          : AppColors.muted,
-                      background: Colors.white,
+                          ? AppColors.primaryDeep
+                          : AppColors.danger,
+                      background: farm.registered
+                          ? AppColors.secondary
+                          : AppColors.dangerSoft,
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${farm.ward}, ${farm.region} · Hekta ${farm.sizeHa}',
+                  '${farm.ward}, ${farm.region} · Hekta ${farm.sizeHa} za uzalishaji',
                   style: AppText.small.copyWith(color: Colors.white70),
                 ),
                 const SizedBox(height: AppSpacing.lg),
+                // Goal-gradient progress toward harvest
                 Container(
                   padding: const EdgeInsets.all(AppSpacing.md),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.12),
+                    color: Colors.white.withValues(alpha: 0.14),
                     borderRadius: BorderRadius.circular(AppRadius.md),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
                   ),
-                  child: Row(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.flag_outlined,
-                        size: 17,
-                        color: AppColors.secondary,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.eco_rounded,
+                                size: 16,
+                                color: AppColors.secondary,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                'Maendeleo ya Kuelekea Mavuno',
+                                style: AppText.small.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            '${(progress * 100).toInt()}%',
+                            style: AppText.small.copyWith(
+                              color: AppColors.secondary,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: AppSpacing.sm),
-                      Expanded(
-                        child: Text(
-                          farm.goal,
-                          style: AppText.small.copyWith(color: Colors.white),
+                      const SizedBox(height: AppSpacing.xs),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(AppRadius.pill),
+                        child: LinearProgressIndicator(
+                          value: progress == 0.0 ? 0.25 : progress,
+                          minHeight: 6,
+                          backgroundColor: Colors.white24,
+                          valueColor: const AlwaysStoppedAnimation(AppColors.secondary),
                         ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Umebakiwa na hatua chache kukamilisha mzunguko wa faida ya zao lako!',
+                        style: AppText.overline.copyWith(color: Colors.white70),
                       ),
                     ],
                   ),
@@ -130,9 +170,9 @@ class FarmScreen extends StatelessWidget {
                   children: [
                     for (final crop in farm.crops)
                       MkPill(
-                        label: crop,
+                        label: 'Zao Lako: $crop',
                         foreground: AppColors.primaryDeep,
-                        background: Colors.white.withValues(alpha: 0.9),
+                        background: Colors.white.withValues(alpha: 0.92),
                       ),
                     for (final stock in farm.livestock)
                       MkPill(
@@ -146,6 +186,42 @@ class FarmScreen extends StatelessWidget {
               ],
             ),
           ),
+          // Loss aversion alert banner if tasks or expenses need attention
+          if (farm.tasks.any((t) => !t.done))
+            Container(
+              margin: const EdgeInsets.only(top: AppSpacing.md),
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: AppColors.accentSoft,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+                border: Border.all(color: AppColors.accent.withValues(alpha: 0.5)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.warning_amber_rounded,
+                    color: Color(0xFF8A6205),
+                    size: 24,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Kumbuka: Usalama wa Mazao Yako',
+                          style: AppText.bodyStrong.copyWith(color: const Color(0xFF523B02)),
+                        ),
+                        Text(
+                          'Kuchelewa kuweka mbolea au kupulizia dawa kunaweza kupunguza hadi 30% ya mavuno yako ya msimu!',
+                          style: AppText.small.copyWith(color: const Color(0xFF523B02)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           const SizedBox(height: AppSpacing.lg),
           Row(
             children: [

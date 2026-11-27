@@ -73,6 +73,10 @@ class GlassPanel extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: BorderRadius.circular(radius),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.22),
+          width: 1.2,
+        ),
         boxShadow: AppShadows.floating,
       ),
       child: Stack(
@@ -85,7 +89,7 @@ class GlassPanel extends StatelessWidget {
               height: 140,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withValues(alpha: 0.10),
+                color: Colors.white.withValues(alpha: 0.14),
               ),
             ),
           ),
@@ -97,7 +101,7 @@ class GlassPanel extends StatelessWidget {
               height: 120,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withValues(alpha: 0.06),
+                color: Colors.white.withValues(alpha: 0.08),
               ),
             ),
           ),
@@ -105,6 +109,48 @@ class GlassPanel extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// Soft glass card with subtle translucency and delicate border.
+class SoftGlassCard extends StatelessWidget {
+  const SoftGlassCard({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(AppSpacing.md),
+    this.onTap,
+    this.radius = AppRadius.lg,
+  });
+
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final VoidCallback? onTap;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget content = Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.88),
+        borderRadius: BorderRadius.circular(radius),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.6),
+          width: 1.2,
+        ),
+        boxShadow: AppShadows.card,
+      ),
+      child: child,
+    );
+
+    if (onTap != null) {
+      return InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(radius),
+        child: content,
+      );
+    }
+    return content;
   }
 }
 
