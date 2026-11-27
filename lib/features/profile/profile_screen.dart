@@ -10,13 +10,17 @@ import '../../core/widgets/mk_card.dart';
 import '../../core/widgets/mk_image.dart';
 import '../../data/models/user.dart';
 import '../../data/seed/misc_seed.dart';
+import '../ai/ai_assistant_screen.dart';
+import '../alerts/price_alerts_screen.dart';
 import '../calculator/crop_calculator_screen.dart';
 import '../calendar/farm_calendar_screen.dart';
 import '../diagnosis/pest_diagnosis_screen.dart';
 import '../directory/agro_directory_screen.dart';
 import '../farm/farm_screen.dart';
+import '../logistics/agri_logistics_screen.dart';
 import '../marketplace/create_listing_screen.dart';
 import '../marketplace/my_listings_screen.dart';
+import '../receipts/agri_receipts_screen.dart';
 import 'favorites_screen.dart';
 import 'notifications_screen.dart';
 import 'settings_screen.dart';
@@ -202,6 +206,38 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
               child: Column(
                 children: [
+                  _MenuTile(
+                    icon: Icons.auto_awesome_rounded,
+                    color: AppColors.primary,
+                    title: 'Mkulima AI Assistant',
+                    subtitle: 'Msaidizi wa akili bandia wa kilimo na ushauri',
+                    onTap: () => pushScreen(context, const AiAssistantScreen()),
+                  ),
+                  const Divider(),
+                  _MenuTile(
+                    icon: Icons.receipt_long_rounded,
+                    color: AppColors.accent,
+                    title: 'Risiti za Mauzo (Ledger)',
+                    subtitle: 'Toa risiti za kidijitali na fuatilia mauzo',
+                    onTap: () => pushScreen(context, const AgriReceiptsScreen()),
+                  ),
+                  const Divider(),
+                  _MenuTile(
+                    icon: Icons.notifications_active_outlined,
+                    color: AppColors.danger,
+                    title: 'Arifa za Bei za Soko',
+                    subtitle: 'Pata taarifa bei ikipanda au ikishuka',
+                    onTap: () => pushScreen(context, const PriceAlertsScreen()),
+                  ),
+                  const Divider(),
+                  _MenuTile(
+                    icon: Icons.local_shipping_outlined,
+                    color: const Color(0xFF00806A),
+                    title: 'Usafirishaji na Maghala',
+                    subtitle: 'Madereva wa mizigo na hifadhi ya mazao',
+                    onTap: () => pushScreen(context, const AgriLogisticsScreen()),
+                  ),
+                  const Divider(),
                   _MenuTile(
                     icon: Icons.calculate_outlined,
                     color: AppColors.accent,

@@ -12,6 +12,8 @@ import '../../core/widgets/product_card.dart';
 import '../../core/widgets/section_header.dart';
 import '../../data/models/category.dart';
 import '../../data/seed/misc_seed.dart';
+import '../ai/ai_assistant_screen.dart';
+import '../alerts/price_alerts_screen.dart';
 import '../calculator/crop_calculator_screen.dart';
 import '../calendar/farm_calendar_screen.dart';
 import '../categories/category_detail_screen.dart';
@@ -19,11 +21,13 @@ import '../diagnosis/pest_diagnosis_screen.dart';
 import '../directory/agro_directory_screen.dart';
 import '../farm/farm_screen.dart';
 import '../guides/guides_screen.dart';
+import '../logistics/agri_logistics_screen.dart';
 import '../marketplace/product_detail_screen.dart';
 import '../marketplace/search_screen.dart';
 import '../prices/price_widgets.dart';
 import '../prices/prices_screen.dart';
 import '../profile/notifications_screen.dart';
+import '../receipts/agri_receipts_screen.dart';
 import '../weather/weather_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -215,6 +219,50 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xxl),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.page),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.auto_awesome_rounded,
+                        label: 'Mkulima AI',
+                        color: AppColors.primarySoft,
+                        foreground: AppColors.primaryDark,
+                        onTap: () => pushScreen(context, const AiAssistantScreen()),
+                      ),
+                    ),
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.receipt_long_rounded,
+                        label: 'Risiti & Mauzo',
+                        color: AppColors.accentSoft,
+                        foreground: const Color(0xFF8A6205),
+                        onTap: () => pushScreen(context, const AgriReceiptsScreen()),
+                      ),
+                    ),
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.notifications_active_outlined,
+                        label: 'Arifa za Bei',
+                        color: AppColors.dangerSoft,
+                        foreground: AppColors.danger,
+                        onTap: () => pushScreen(context, const PriceAlertsScreen()),
+                      ),
+                    ),
+                    Expanded(
+                      child: QuickActionTile(
+                        icon: Icons.local_shipping_outlined,
+                        label: 'Usafiri/Maghala',
+                        color: AppColors.turquoiseSoft,
+                        foreground: const Color(0xFF00806A),
+                        onTap: () => pushScreen(context, const AgriLogisticsScreen()),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppSpacing.sm),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.page),
                 child: Row(
