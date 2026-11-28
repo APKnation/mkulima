@@ -198,6 +198,50 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: AppSpacing.lg),
+            Row(
+              children: [
+                Expanded(
+                  child: FilledButton.icon(
+                    onPressed: () =>
+                        pushScreen(context, const CreateListingScreen()),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppRadius.lg),
+                      ),
+                    ),
+                    icon: const Icon(Icons.add_a_photo_rounded, size: 18),
+                    label: const Text(
+                      'Pakia Zao / Mauzo',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () =>
+                        pushScreen(context, const MyListingsScreen()),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.primaryDark,
+                      side: const BorderSide(color: AppColors.primary),
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppRadius.lg),
+                      ),
+                    ),
+                    icon: const Icon(Icons.edit_note_rounded, size: 20),
+                    label: const Text(
+                      'Simamia (CRUD)',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: AppSpacing.xl),
             Text('Shughuli zangu', style: AppText.h2),
             const SizedBox(height: AppSpacing.sm),

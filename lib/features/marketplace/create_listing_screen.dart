@@ -5,6 +5,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/ui_helpers.dart';
 import '../../core/widgets/mk_button.dart';
 import '../../core/widgets/mk_card.dart';
+import '../../core/widgets/product_photo_picker.dart';
 import '../../data/models/product.dart';
 import '../../data/seed/misc_seed.dart';
 
@@ -40,6 +41,7 @@ class _CreateListingScreenState extends State<CreateListingScreen> {
   String? _subcategoryId;
   String _unit = 'kilo';
   String? _region;
+  String? _selectedImage;
   bool _organic = false;
   bool _negotiable = true;
   String? _error;
@@ -124,7 +126,7 @@ class _CreateListingScreenState extends State<CreateListingScreen> {
         sellerPhone: state.user.phone,
         sellerType: state.user.role,
         listedAt: 'Leo',
-        imageAsset: category.imageAsset,
+        imageAsset: _selectedImage ?? category.imageAsset,
         rating: 0,
         reviewCount: 0,
         verified: state.user.verified,
@@ -154,8 +156,13 @@ class _CreateListingScreenState extends State<CreateListingScreen> {
         ),
         children: [
           Text(
-            'Weka taarifa sahihi ili wanunuzi wakupate haraka.',
+            'Weka picha na taarifa sahihi ili wanunuzi wakupate haraka.',
             style: AppText.body,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          ProductPhotoPicker(
+            selectedAsset: _selectedImage,
+            onSelected: (asset) => setState(() => _selectedImage = asset),
           ),
           const SizedBox(height: AppSpacing.xl),
           TextField(

@@ -31,14 +31,17 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
     final products = state.filter(filter);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'marketplace-create-listing',
-        onPressed: () => pushScreen(context, const CreateListingScreen()),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        elevation: 2,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Tangaza bidhaa'),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 58),
+        child: FloatingActionButton.extended(
+          heroTag: 'marketplace-create-listing',
+          onPressed: () => pushScreen(context, const CreateListingScreen()),
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 2,
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('Tangaza bidhaa'),
+        ),
       ),
       body: SafeArea(
         bottom: false,

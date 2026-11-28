@@ -132,6 +132,14 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateProduct(Product updated) {
+    final index = _listings.indexWhere((p) => p.id == updated.id);
+    if (index >= 0) {
+      _listings[index] = updated;
+      notifyListeners();
+    }
+  }
+
   void addPost(CommunityPost post) {
     _posts.insert(0, post);
     notifyListeners();
