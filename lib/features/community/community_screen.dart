@@ -5,6 +5,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/formatters.dart';
 import '../../core/utils/ui_helpers.dart';
 import '../../core/widgets/badges.dart';
+import '../../core/widgets/mk_button.dart';
 import '../../core/widgets/mk_card.dart';
 import '../../core/widgets/mk_image.dart';
 import '../../data/models/post.dart';
@@ -36,14 +37,17 @@ class _CommunityScreenState extends State<CommunityScreen> {
         .toList();
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'community-create-post',
-        onPressed: () => pushScreen(context, const CreatePostScreen()),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        elevation: 2,
-        icon: const Icon(Icons.edit_rounded),
-        label: const Text('Uliza au shiriki'),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 58),
+        child: FloatingActionButton.extended(
+          heroTag: 'community-create-post',
+          onPressed: () => pushScreen(context, const CreatePostScreen()),
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 2,
+          icon: const Icon(Icons.edit_rounded),
+          label: const Text('Uliza au shiriki'),
+        ),
       ),
       body: SafeArea(
         bottom: false,
@@ -239,6 +243,32 @@ class CommunityPostCard extends StatelessWidget {
                     style: AppText.label.copyWith(color: AppColors.inkSoft),
                   ),
                 ),
+                TextButton.icon(
+                  onPressed: () => showAppSheet(
+                    context,
+                    child: _ReplySheet(post: post),
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.primaryDark,
+                    backgroundColor: AppColors.primarySoft,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    minimumSize: const Size(0, 32),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppRadius.pill),
+                    ),
+                  ),
+                  icon: const Icon(Icons.reply_rounded, size: 17),
+                  label: Text(
+                    'Jibu',
+                    style: AppText.label.copyWith(
+                      color: AppColors.primaryDark,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
                 const Spacer(),
                 IconButton(
                   tooltip: 'Shiriki',
@@ -255,6 +285,114 @@ class CommunityPostCard extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReplySheet extends StatefulWidget {
+  const _ReplySheet({required this.post});
+
+  final CommunityPost post;
+
+  @override
+  State<_ReplySheet> createState() => _ReplySheetState();
+}
+
+class _ReplySheetState extends State<_ReplySheet> {
+  final _replyController = TextEditingController();
+  String? _error;
+
+  @override
+  void dispose() {
+    _replyController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final text = _replyController.text.trim();
+    if (text.length < 3) {
+      setState(() => _error = 'Andika jibu lenye maelezo angalau herufi 3');
+      return;
+    }
+
+    final state = AppScope.read(context);
+    state.addComment(
+      widget.post.id,
+      CommunityComment(
+        id: 'c-${DateTime.now().microsecondsSinceEpoch}',
+        author: state.user.name,
+        role: '${state.user.role} · ${state.user.region}',
+        timeAgo: 'Sasa hivi',
+        text: text,
+      ),
+    );
+
+    Navigator.of(context).pop();
+    showAppSnack(context, 'Jibu lako limetumwa kwenye jamii ✓');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.page,
+        0,
+        AppSpacing.page,
+        AppSpacing.xl + bottomInset,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SheetHandle(),
+          const SizedBox(height: AppSpacing.md),
+          SheetHeader(
+            title: 'Jibu swali la ${widget.post.author}',
+            subtitle: widget.post.categoryLabel,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(AppSpacing.md),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceAlt,
+              borderRadius: BorderRadius.circular(AppRadius.md),
+              border: Border.all(color: AppColors.line),
+            ),
+            child: Text(
+              widget.post.content,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: AppText.small.copyWith(color: AppColors.inkSoft),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          TextField(
+            controller: _replyController,
+            autofocus: true,
+            maxLines: 4,
+            minLines: 3,
+            textCapitalization: TextCapitalization.sentences,
+            decoration: InputDecoration(
+              labelText: 'Jibu lako *',
+              hintText: 'Shiriki ushauri, uzoefu au suluhisho lako...',
+              alignLabelWithHint: true,
+              errorText: _error,
+            ),
+            onChanged: (_) {
+              if (_error != null) setState(() => _error = null);
+            },
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          MkButton(
+            label: 'Tuma jibu',
+            icon: Icons.send_rounded,
+            onPressed: _submit,
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/ui_helpers.dart';
 import '../../core/widgets/mk_button.dart';
 import '../../data/seed/misc_seed.dart';
+import 'interests_selection_screen.dart';
 
 const _roles = [
   'Mkulima binafsi',
@@ -12,18 +13,6 @@ const _roles = [
   'Mnunuzi / Mfanyabiashara',
   'Chama cha ushirika',
   'Muuzaji wa pembejeo',
-];
-
-const _interestOptions = [
-  'Mahindi',
-  'Mboga',
-  'Matunda',
-  'Nafaka',
-  'Kuku',
-  'Mifugo',
-  'Samaki',
-  'Asali',
-  'Pembejeo',
 ];
 
 class RegisterScreen extends StatefulWidget {
@@ -39,7 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _ward = TextEditingController();
   String? _region;
   String _role = _roles.first;
-  final Set<String> _interests = {'Mahindi', 'Mboga'};
   String? _error;
 
   @override
@@ -65,20 +53,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     setState(() => _error = null);
 
+    final phone = _phone.text.trim();
     final state = AppScope.read(context);
     state.updateProfile(
       state.user.copyWith(
         name: _name.text.trim(),
-        phone: _phone.text.trim(),
+        phone: phone,
         region: _region,
         ward: _ward.text.trim().isEmpty ? state.user.ward : _ward.text.trim(),
         role: _role,
-        interests: _interests.toList(),
       ),
     );
-    state.signIn(_phone.text.trim());
-    showAppSnack(context, 'Karibu Mkulima, akaunti yako imefunguliwa!');
-    Navigator.of(context).popUntil((route) => route.isFirst);
+    pushScreen(context, InterestsSelectionScreen(phone: phone));
   }
 
   @override
@@ -157,29 +143,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onChanged: (value) {
                   if (value != null) setState(() => _role = value);
                 },
-              ),
-              const SizedBox(height: AppSpacing.xl),
-              Text('Nini kinakuvutia?', style: AppText.h3),
-              const SizedBox(height: AppSpacing.sm),
-              Wrap(
-                spacing: AppSpacing.sm,
-                runSpacing: AppSpacing.sm,
-                children: [
-                  for (final interest in _interestOptions)
-                    FilterChip(
-                      label: Text(interest),
-                      selected: _interests.contains(interest),
-                      onSelected: (selected) {
-                        setState(() {
-                          if (selected) {
-                            _interests.add(interest);
-                          } else {
-                            _interests.remove(interest);
-                          }
-                        });
-                      },
-                    ),
-                ],
               ),
               if (_error != null) ...[
                 const SizedBox(height: AppSpacing.md),
